@@ -44,6 +44,10 @@ app.get("/paginita", (req, res) => {
     });
 });
 
+app.get("/formulario", (req, res) => {
+    res.render("formulario");
+});
+
 app.listen(port, () => {
     console.log("el puerto anda mortal ");
 });
