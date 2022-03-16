@@ -1,0 +1,27 @@
+{
+    "dependencies": {
+        "body-parser": "^1.19.2",
+        "cors": "^2.8.5",
+        "ejs": "^3.1.6",
+        "express": "^4.17.3",
+        "mysql": "^2.18.1",
+        "path": "^0.12.7"
+    },
+    "scripts": {
+        "start": "node server.js"
+    },
+    "name": "repositorio-default",
+    "version": "1.0.0",
+    "main": "server.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jeremiasAgueroDiaz/repositorio-default.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/jeremiasAgueroDiaz/repositorio-default/issues"
+    },
+    "homepage": "https://github.com/jeremiasAgueroDiaz/repositorio-default#readme",
+    "description": ""
+}
