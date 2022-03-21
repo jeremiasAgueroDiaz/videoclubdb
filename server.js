@@ -48,6 +48,26 @@ app.get("/formulario", (req, res) => {
     res.render("formulario");
 });
 
+app.post("/new", (req, res) => {
+    let sql = `INSERT INTO peliculas(nombre, director, isan, recaudacion, genero, estreno, premios) VALUES (?)`;
+    let values = [
+        req.body.nombre,
+        req.body.director,
+        req.body.isan,
+        req.body.recaudacion,
+        req.body.genero,
+        req.body.estreno,
+        req.body.premios,
+    ];
+    db.query(sql, [values], function (err, data, fields) {
+        if (err) throw err;
+        res.json({
+            status: 200,
+            message: "New user added successfully",
+        });
+    });
+});
+
 app.listen(port, () => {
     console.log("el puerto anda mortal ");
 });
