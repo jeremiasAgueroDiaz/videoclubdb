@@ -1,6 +1,10 @@
+body {
+    background-color: black;
+}
+
 form {
     /* Centrar el formulario en la página */
-    margin: 0 auto;
+    margin: 100 auto;
     width: 400px;
     /* Esquema del formulario */
     padding: 1em;
@@ -14,6 +18,10 @@ ul {
     margin: 0;
 }
 
+.letras {
+    color: red;
+}
+
 form li + li {
     margin-top: 1em;
 }
@@ -22,7 +30,7 @@ label {
     /* Tamaño y alineación uniforme */
     display: inline-block;
     width: 90px;
-    text-align: right;
+    text-align: left;
 }
 
 input,
@@ -36,7 +44,7 @@ textarea {
     box-sizing: border-box;
 
     /* Hacer coincidir los bordes del campo del formulario */
-    border: 1px solid #999;
+    border: 1px solid rgb(116, 116, 116);
 }
 
 input:focus,
@@ -61,5 +69,5 @@ textarea {
 button {
     /* Este margen adicional representa aproximadamente el mismo espacio que el espacio
        entre las etiquetas y sus campos de texto */
-    margin-left: 0.5em;
+    margin-left: 1.5cm;
 }
