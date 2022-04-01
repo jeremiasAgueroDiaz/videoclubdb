@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const mysql = require("mysql");
 const cors = require("cors");
+const Swal = require("sweetalert2");
 
 const port = 2500;
 
@@ -48,6 +49,18 @@ app.get("/formulario", (req, res) => {
     res.render("formulario");
 });
 
+app.get("/Login", (req, res) => {
+    res.render("Login");
+});
+app.post("/newuser", (req, res) => {
+    let sql = `INSERT INTO usuarios(usuario,contraseña) VALUES (?)`;
+    let values = [req.body.usuario, req.body.contraseña];
+    db.query(sql, [values], function (err, data, fields) {
+        if (err) throw err;
+        res.render("formulario", { isAdded: true });
+    });
+});
+
 app.post("/new", (req, res) => {
     let sql = `INSERT INTO peliculas(nombre, director, isan, recaudacion, genero, estreno, premios) VALUES (?)`;
     let values = [
@@ -61,10 +74,7 @@ app.post("/new", (req, res) => {
     ];
     db.query(sql, [values], function (err, data, fields) {
         if (err) throw err;
-        res.json({
-            status: 200,
-            message: "New user added successfully",
-        });
+        res.render("formulario", { isAdded: true });
     });
 });
 
