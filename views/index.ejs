@@ -13,6 +13,7 @@
         />
         <!-- import css -->
         <link rel="stylesheet" href="css/indexstyle.css">
+        <link rel="shortcut icon" href="/img/logo.png">
     </head>
     <body>
         <%-include('fragmentos/navbar')%>
@@ -22,7 +23,8 @@
         <% data.forEach (function(i){ %>
         <!--  -->
             <div class="col-4">
-                        <div class="card espacioCard" style="width: 18rem">
+                        <div class="card text-white bg-secondary espacioCard" style="width: 18rem">
+                            <img src= "<%= i.portada%>" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title titulo"><%= i.nombre%></h5>
                                 <p class="card-text">

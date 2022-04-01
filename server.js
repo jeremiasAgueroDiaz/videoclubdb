@@ -42,6 +42,7 @@ app.set("vista", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/videoclub", (req, res) => {
+    Swal.fire("Esta es una alerta");
     let sql = `SELECT * FROM peliculas`;
     db.query(sql, (err, data, fields) => {
         if (err) throw err;
@@ -75,6 +76,7 @@ app.post("/user", (req, res) => {
                 res.redirect("/videoclub");
             } else {
                 creado = false;
+                console.log("que carajos intentas?");
                 res.redirect("/login");
             }
         });
