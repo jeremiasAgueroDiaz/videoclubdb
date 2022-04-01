@@ -52,13 +52,14 @@ app.get("/formulario", (req, res) => {
 app.get("/Login", (req, res) => {
     res.render("Login");
 });
+
 app.post("/newuser", (req, res) => {
     let sql = `INSERT INTO usuarios(usuario,contraseña) VALUES (?)`;
     let values = [req.body.usuario, req.body.contraseña];
     db.query(sql, [values], function (err, data, fields) {
         if (err) throw err;
-        res.render("formulario", { isAdded: true });
     });
+    sql = `SELECT * FROM usuarios`;
 });
 
 app.post("/new", (req, res) => {
