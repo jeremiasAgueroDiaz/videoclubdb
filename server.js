@@ -7,7 +7,7 @@ const mysql = require("mysql");
 const cors = require("cors");
 const Swal = require("sweetalert2");
 
-const port = 2500;
+const port = 2050;
 
 const db = mysql.createConnection({
     host: "localhost",
@@ -40,8 +40,8 @@ app.get("/videoclub", (req, res) => {
             data,
             message: "lista de peliculas",
         };
-        let largo = data.length;
-        res.render("index", { data: data, largo: largo });
+
+        res.render("index", { data: data });
     });
 });
 
@@ -49,18 +49,28 @@ app.get("/formulario", (req, res) => {
     res.render("formulario");
 });
 
-app.get("/Login", (req, res) => {
+app.get("/login", (req, res) => {
     res.render("Login");
 });
 
 app.post("/newuser", (req, res) => {
-    let sql = `SELECT usuario, contraseña FROM usuarios`;
-    let values = [req.body.usuario, req.body.contraseña];
-    db.query(sql, [values], (err, data, fields) => {
+    let sql = `SELECT * FROM usuarios`;
+    let usuario = req.body.usuario;
+    let contraseña = req.body.contraseña;
+    db.query(sql, (err, data, fields) => {
         if (err) throw err;
+        console.log(data);
+        let send = {
+            status: 200,
+            data,
+            message: "usuarios",
+        };
+        res.render("Login", {
+            data: data,
+            usuario: usuario,
+            contraseña: contraseña,
+        });
     });
-
-   res.render("Login", { sql: sql, values: values});
 });
 
 app.post("/new", (req, res) => {
