@@ -31,7 +31,7 @@ app.set("view engine", "ejs");
 app.set("vista", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/paginita", (req, res) => {
+app.get("/videoclub", (req, res) => {
     let sql = `SELECT * FROM peliculas`;
     db.query(sql, (err, data, fields) => {
         if (err) throw err;
@@ -54,12 +54,13 @@ app.get("/Login", (req, res) => {
 });
 
 app.post("/newuser", (req, res) => {
-    let sql = `INSERT INTO usuarios(usuario,contraseña) VALUES (?)`;
+    let sql = `SELECT usuario, contraseña FROM usuarios`;
     let values = [req.body.usuario, req.body.contraseña];
-    db.query(sql, [values], function (err, data, fields) {
+    db.query(sql, [values], (err, data, fields) => {
         if (err) throw err;
     });
-    sql = `SELECT * FROM usuarios`;
+
+   res.render("Login", { sql: sql, values: values});
 });
 
 app.post("/new", (req, res) => {
@@ -75,7 +76,7 @@ app.post("/new", (req, res) => {
     ];
     db.query(sql, [values], function (err, data, fields) {
         if (err) throw err;
-        res.render("formulario", { isAdded: true });
+        res.render("formulario");
     });
 });
 

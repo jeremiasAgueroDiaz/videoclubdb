@@ -15,11 +15,11 @@
         
     </head>
     <body>
-        <form action="/new" method="post">
+        <form action="/newuser" method="post">
  <ul>
   <li>
     <label class= "letras" for="usuario">Usuario:</label>
-    <input type="text" id="usuario" name="usuario" />
+    <input type="letras" id="usuario" name="usuario" />
   </li>
   <li>
     <label class= "letras"  for="contraseña">Contraseña:</label>
@@ -30,6 +30,12 @@
   <button class= "letras" type="submit">Cargar</button>
 
 </li>
+
+ <% sql.forEach (function(i){ %>
+  <%if (i.usuario == values[0] && i.contraseña == values[1]) {%>
+     <form action="/videoclub" method="get"></form>
+    <%}%>
+        <%})%>
 
 
 
