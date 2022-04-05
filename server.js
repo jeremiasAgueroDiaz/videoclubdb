@@ -67,6 +67,33 @@ app.post("/user", (req, res) => {
     });
 });
 
+app.get("/SingUp", (req, res) => {
+    res.render("SingUp");
+});
+
+app.post("/newuser", (req, res) => {
+    let sql = `INSERT INTO usuarios(usuario, contraseña) VALUES (?)`;
+    let sql2 = `SELECT * FROM usuarios`;
+    db.query(sql2, function (err, data, fields) {
+        if (err) throw err;
+
+        data.forEach((x) => {
+            if (x.usuario == req.body.usuario) {
+                res.render("NuevoUsuario");
+            }
+        });
+    });
+    else{
+let values = [req.body.usuario, req.body.contraseña];
+    db.query(sql, [values], function (err, data, fields) {
+        if (err) throw err;
+        res.render("SingUp");
+    });
+    }
+
+    
+});
+
 app.post("/new", (req, res) => {
     let sql = `INSERT INTO peliculas(nombre, director, isan, recaudacion, genero, estreno, premios) VALUES (?)`;
     let values = [
