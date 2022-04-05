@@ -53,19 +53,13 @@ app.get("/login", (req, res) => {
     res.render("Login");
 });
 
-app.post("/newuser", (req, res) => {
+app.post("/user", (req, res) => {
     let sql = `SELECT * FROM usuarios`;
     let usuario = req.body.usuario;
     let contraseña = req.body.contraseña;
     db.query(sql, (err, data, fields) => {
         if (err) throw err;
-        console.log(data);
-        let send = {
-            status: 200,
-            data,
-            message: "usuarios",
-        };
-        res.render("Login", {
+        res.render("Redirect", {
             data: data,
             usuario: usuario,
             contraseña: contraseña,
