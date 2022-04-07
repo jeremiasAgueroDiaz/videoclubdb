@@ -6,6 +6,7 @@ const path = require("path");
 const mysql = require("mysql");
 const cors = require("cors");
 const Swal = require("sweetalert2");
+const bcrypt = require("bcrypt");
 
 const port = 2050;
 
@@ -54,15 +55,17 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/user", (req, res) => {
-    let sql = `SELECT * FROM usuarios`;
-    let usuario = req.body.usuario;
+    let sql = `SELECT contraseña FROM usuarios WHERE usuario = ?`;
     let contraseña = req.body.contraseña;
-    db.query(sql, (err, data, fields) => {
+    db.query(sql, [req.body.usuario], (err, data, fields) => {
         if (err) throw err;
-        res.render("Redirect", {
-            data: data,
-            usuario: usuario,
-            contraseña: contraseña,
+        bcrypt.compare(contraseña, data[0].contraseña, function (err, result) {
+            if (err) throw err;
+            if (result == true) {
+                res.redirect("/videoclub");
+            } else {
+                res.redirect("/login");
+            }
         });
     });
 });
@@ -76,22 +79,24 @@ app.post("/newuser", (req, res) => {
     let sql2 = `SELECT * FROM usuarios`;
     db.query(sql2, function (err, data, fields) {
         if (err) throw err;
-
+        let exsiste = false;
         data.forEach((x) => {
             if (x.usuario == req.body.usuario) {
+                exsiste = true;
                 res.render("NuevoUsuario");
             }
         });
+        if (exsiste == false) {
+            let encriptado = 0;
+            bcrypt.hash(req.body.contraseña, 10, function (err, encriptado) {
+                let values = [req.body.usuario, encriptado];
+                db.query(sql, [values], function (err, data, fields) {
+                    if (err) throw err;
+                    res.redirect("/videoclub");
+                });
+            });
+        }
     });
-    else{
-let values = [req.body.usuario, req.body.contraseña];
-    db.query(sql, [values], function (err, data, fields) {
-        if (err) throw err;
-        res.render("SingUp");
-    });
-    }
-
-    
 });
 
 app.post("/new", (req, res) => {
