@@ -7,8 +7,17 @@ const mysql = require("mysql");
 const cors = require("cors");
 const Swal = require("sweetalert2");
 const bcrypt = require("bcrypt");
+const session = require("express-session");
+const port = 2070;
+let creado = false;
 
-const port = 2050;
+app.use(
+    session({
+        secret: "keyboard cat",
+        resave: false,
+        saveUninitialized: true,
+    })
+);
 
 const db = mysql.createConnection({
     host: "localhost",
@@ -42,7 +51,7 @@ app.get("/videoclub", (req, res) => {
             message: "lista de peliculas",
         };
 
-        res.render("index", { data: data });
+        res.render("index", { data: data, creado: creado });
     });
 });
 
@@ -62,11 +71,19 @@ app.post("/user", (req, res) => {
         bcrypt.compare(contraseña, data[0].contraseña, function (err, result) {
             if (err) throw err;
             if (result == true) {
+                creado = true;
                 res.redirect("/videoclub");
             } else {
+                creado = false;
                 res.redirect("/login");
             }
         });
+    });
+});
+
+app.get("/SingOut", (req, res) => {
+    req.session.destroy(function (err) {
+        console.log("Destruido pete");
     });
 });
 
