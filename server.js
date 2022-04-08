@@ -85,6 +85,7 @@ app.get("/SingOut", (req, res) => {
     req.session.destroy(function (err) {
         console.log("Destruido pete");
     });
+    res.redirect("login");
 });
 
 app.get("/SingUp", (req, res) => {
